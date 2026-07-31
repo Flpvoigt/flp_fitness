@@ -1,3 +1,4 @@
+import 'active_workout_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/theme/app_colors.dart';
@@ -40,7 +41,7 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
                 textCapitalization: TextCapitalization.sentences,
                 decoration: const InputDecoration(
                   labelText: 'Nome do exercício',
-                  hintText: 'Exemplo: Supino reto',
+                  hintText: 'Ex: Supino reto',
                   prefixIcon: Icon(Icons.fitness_center),
                 ),
               ),
@@ -50,7 +51,7 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
                 textCapitalization: TextCapitalization.sentences,
                 decoration: const InputDecoration(
                   labelText: 'Grupo muscular',
-                  hintText: 'Exemplo: Peito',
+                  hintText: 'Ex: Peito',
                   prefixIcon: Icon(Icons.accessibility_new),
                 ),
               ),
@@ -249,6 +250,34 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
         backgroundColor: AppColors.background,
         foregroundColor: AppColors.white,
         title: Text(widget.plan.name),
+        actions: [
+          IconButton(
+            tooltip: 'Iniciar treino',
+            icon: const Icon(
+              Icons.play_circle_fill,
+              color: AppColors.green,
+              size: 30,
+            ),
+            onPressed: () {
+              if (widget.plan.exercises.isEmpty) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Adicione pelo menos um exercício.'),
+                  ),
+                );
+                return;
+              }
+
+              Navigator.push(
+                context,
+                MaterialPageRoute<void>(
+                  builder: (_) => ActiveWorkoutScreen(plan: widget.plan),
+                ),
+              );
+            },
+          ),
+          const SizedBox(width: 8),
+        ],
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _addExercise,
