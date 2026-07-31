@@ -1,0 +1,20 @@
+class Exercise {
+  Exercise({
+    required this.id,
+    required this.name,
+    required this.muscleGroup,
+    this.sets = 3,
+    this.repetitions = 10,
+    this.load = 0,
+    this.restSeconds = 60,
+  });
+
+  final String id;
+  final String name;
+  final String muscleGroup;
+
+  int sets;
+  int repetitions;
+  double load;
+  int restSeconds;
+}
